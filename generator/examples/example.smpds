@@ -1,0 +1,9 @@
+init p1 g1 g2 # r1 r2 r3;
+
+branchcaret { E Xg A Xa (E [p1 Ug p2] || E Xa p3)}
+
+r1: p1 g1 -> p2 g2;
+r2: p2 g2 -> p3 g1;
+r3: p3 -( r2 / r4 r5)-> p1;
+r4: p2 g2 +> p1 g1 g2;
+r5: p1 g1 +> p2;

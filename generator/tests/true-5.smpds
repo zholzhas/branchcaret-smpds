@@ -1,0 +1,13 @@
+init entry b # r1 r2 r3 r4 r5 r6 r7 r8 r01;
+
+branchcaret{E[ True Ug sys_WSAStartup ]}
+r1: entry b -> p1 b;
+r2: p1 b -> p2 b;
+r3: p2 b -> sys_tick rp3 b;
+r4: sys_tick rp3 -> p4 rp3;
+r5: p4 -(r8 r01 / r9 r01)-> p5;
+r6: p5 rp3 -> p3;
+r7: p3 b -> sys_WSAStartup rsys_memset b;
+r8: pp b -> pp b;
+r9: ppp b -> ppp b;
+r01: sys_WSAStartup rsys_memset -> sys_WSAStartup rsys_memset;

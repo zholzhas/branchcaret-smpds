@@ -1,0 +1,5 @@
+init p1 g1 # r1;
+
+branchcaret{ p1 }
+
+r1: p1 g1 -> p1 g1;

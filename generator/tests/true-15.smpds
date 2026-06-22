@@ -1,0 +1,10 @@
+init p0 g8 # r14 r24 r25 a b;
+
+branchcaret{ E[ True Ug E[False Ra !p2]] }
+
+r25: p0 -(a / b)-> p1;
+r24: p1 g8 +> p3 g8 g6;
+r14: p3 g8 -> p3 g8;
+
+a: pa ga -> pa ga;
+b : pb gb -> pb gb;

@@ -1,0 +1,11 @@
+init p1 g1 # r1 r2;
+
+branchcaret{ E[True Ug (@"eax=<BV32 unconstrained_ret_OpenProcess_122_32>" && a1)] where [
+    @"eax=<BV32 unconstrained_ret_OpenProcess_122_32>" := @"0p3",
+    a1 := * : /g2 + .*/
+] }
+
+r1: p1 g1 -> p2 g1;
+r2: p2 -(r1 / r3 r4)-> p1;
+r3: p1 g1 -> @"0p3" g2;
+r4: @"0p3" g2 -> @"0p3" g2;

@@ -1,0 +1,6 @@
+init p1 g1 # ;
+
+branchcaret{ ap0 where [
+ap0 := * : /g1 + .*/
+] }
+

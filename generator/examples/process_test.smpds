@@ -1,0 +1,11 @@
+// DO NOT MODIFY - FOR TEST PURPOSES
+init p1 g1 # r1 r2 r3;
+
+branchcaret{ A [ True Ug p2 && E[ True Ug p3] ] }
+
+r1: p1 g1 -> p2 g2 g1;
+r2: p1 g1 +> p2 g2 g1;
+r3: p3 -( r1 / r3 )-> p3;
+r4: p3 g2 -> p3 g2;
+r5: p3 g2 -> p3;
+r6: p3 g2 +> p3;

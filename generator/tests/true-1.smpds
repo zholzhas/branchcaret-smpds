@@ -1,0 +1,6 @@
+init p1 g1 # r1 r2;
+
+branchcaret{ A[False Rg (E [ p1 Ug p2 ] )] }
+
+r1: p1 g1 -> p2 g2 g1;
+r2: p2 g2 -> p1;

@@ -1,0 +1,7 @@
+init p1 g1 # r1 r2;
+
+branchcaret{ A[False Ra !p4] }
+
+r1: p1 -(r2 / r3)-> p2;
+r2: p2 g1 -> p4 g1;
+r3: p2 g1 -> p2 g1;
