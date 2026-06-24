@@ -20,7 +20,9 @@ Run:
 ```
 python test.py
 ```
-The script will populate table `results_stat.csv`.
+The script will populate table `results_stat.csv`. It was designed to
+always generate the same input for each entry, so the results are
+reproducible. The seed is generated from three variables of the table.
 Then:
 ```
 python table.py
@@ -28,8 +30,6 @@ python table.py
 The script will aggregate the data and print the LaTeX table used
 in the paper.
 
-The repository also includes `results_stat_ref.csv` that was obtained 
-by us.
 
 ## Usage Instructions
 To build the binary:

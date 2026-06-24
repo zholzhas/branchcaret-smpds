@@ -328,6 +328,7 @@ import csv
 def createRandomSmpdsFile(state_size, alphabet_size, num_rules, num_smrules, caret_size):
     smpds, init = generatePDS(state_size, alphabet_size, num_rules, num_smrules)
     caret = getRandomCaret(smpds, caret_size)
+    print(caret)
     json_name = 'test.json'
     with open(json_name, "w") as file:
         def set_default(obj):
@@ -370,7 +371,7 @@ def test_equivalence(state_size, alphabet_size, num_rules, num_smrules, caret_si
     ctl_json_name, stat = createRandomSmpdsFile(state_size, alphabet_size, num_rules, num_smrules, caret_size)
 
     col = ([None] * 6)
-    timeout = 20 * 60
+    timeout = 60 * 60
 
     last_err = ''
     with subprocess.Popen(["./bcaret_mc_smpds", ctl_json_name, "-pytest"], text=True, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE) as proc1:
@@ -383,7 +384,6 @@ def test_equivalence(state_size, alphabet_size, num_rules, num_smrules, caret_si
             if time.time() - start_time > timeout:
                 proc1.terminate()
                 killed = True
-                return
                 # proc1.kill()
 
             p = subprocess.Popen(["grep", "VmRSS", "/proc/%s/status" % proc1.pid],
@@ -441,7 +441,7 @@ def test_equivalence(state_size, alphabet_size, num_rules, num_smrules, caret_si
 
         col[3:] = proc_output(stdout, stderr, killed, max_mem, timeout, time.time() - start_time)
 
-    csv_file = 'results_stat.csv'
+    csv_file = 'results_stat_single.csv'
     col = stat + col + [ trial ]
     with open(csv_file, 'a') as f:
         writer = csv.writer(f)
@@ -451,41 +451,20 @@ import math
 if __name__ == '__main__':
     subprocess.call(['sh', './build.sh'])
 
-    done = [
-        # [200, 10, 3],
-        # [200, 10, 5],
-        # [200, 15, 3],
-        # [200, 15, 5],
-        # [200, 5, 3],
-        # [200, 5, 5],
-
-        # [150, 10, 3],
-        # [150, 10, 5],
-        # [150, 15, 3],
-        # [150, 15, 5],
-        # [150, 5, 3],
-        # [150, 5, 5],
-
-        # [100, 10, 3],
-        # [100, 10, 5],
-        # [100, 15, 3],
-        # [100, 15, 5],
-        # [100, 5, 3],
-        # [100, 5, 5],
-    ]
+    done = []
     
-    for num_rules in [200, 150, 100]:
-        for num_smrules in [10, 15, 5]:
-            for caret_size in [3, 5]:
-                if [num_rules, num_smrules, caret_size] in done:
-                    continue
-                for trial in range(100):
+    for trial in range(200):
+        for num_rules in [100, 200, 300]:
+            for num_smrules in [20, 10, 15]:
+                for caret_size in [3, 5, 7]:
+                    if [num_rules, num_smrules, caret_size] in done:
+                        continue
                     h = hashlib.new('sha256')
-                    h.update(f'{num_rules}:{num_smrules}:{caret_size}:{trial}'.encode())
+                    h.update(f'{num_rules}:{num_smrules}:{caret_size}'.encode())
                     seed = int(h.hexdigest()[:15], 16)
                     random.seed(seed)
                     state_size = int(math.sqrt(num_rules))
                     alphabet_size = random.randint(int((num_rules // state_size) // 2), int(num_rules // state_size))
-                    print(state_size, alphabet_size, num_rules, num_smrules, caret_size)
+                    print(num_rules, num_smrules, caret_size)
                     test_equivalence(state_size, alphabet_size, num_rules, num_smrules, caret_size, trial)
                 
